@@ -7,29 +7,31 @@ import (
 	"golang.design/x/hotkey"
 )
 
-func parseKey(key string) (hotkey.Key, error) {
+func ParseKey(key string) (hotkey.Key, error) {
+	key = strings.ToLower(key)
 	if k, ok := KeysMap[key]; ok {
 		return k, nil
 	}
 	return hotkey.Key(0), fmt.Errorf("unknown key: %s", key)
 }
 
-func parseModifier(modifier string) (hotkey.Modifier, error) {
-	if m, ok := ModsMap[modifier]; ok {
+func ParseMod(mod string) (hotkey.Modifier, error) {
+	mod = strings.ToLower(mod)
+	if m, ok := ModsMap[mod]; ok {
 		return m, nil
 	}
-	return 0, fmt.Errorf("unknown modifier: %s", modifier)
+	return 0, fmt.Errorf("unknown modifier: %s", mod)
 }
 
 func Parse(hk string, delimiter string) (*hotkey.Hotkey, error) {
 	tokens := strings.Split(hk, delimiter)
-	key, err := parseKey(tokens[len(tokens)-1])
+	key, err := ParseKey(tokens[len(tokens)-1])
 	if err != nil {
 		return nil, err
 	}
 	modifiers := make([]hotkey.Modifier, 0, len(tokens)-1)
 	for _, token := range tokens[:len(tokens)-1] {
-		modifier, err := parseModifier(token)
+		modifier, err := ParseMod(token)
 		if err != nil {
 			return nil, err
 		}
