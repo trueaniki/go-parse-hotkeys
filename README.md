@@ -6,7 +6,7 @@ hotkey := parsehotkeys.Parse("Ctrl+Shift+A", "+")
 hotkey = parsehotkeys.Parse("CTRL OPTION A", " ")
 hotkey = parsehotkeys.Parse("ctrl&alt&a", "&")
 ```
-Then you can use according to `golang.design/x/hotkey` docs
+Then you can use according to [golang.design/x/hotkey](https://pkg.go.dev/golang.design/x/hotkey) docs
 ```go
 hotkey.Register()
 ```
